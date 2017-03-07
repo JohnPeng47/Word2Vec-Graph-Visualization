@@ -28,10 +28,146 @@ $(function(){
                     }
                 },
                 {
-                    selector: 'edge[cluster=0]',
+                    selector: 'edge',
                     style: {
                         'width': 3,
                         'line-color': '#ccc',
+                        'target-arrow-color': '#ff3300',
+                        'target-arrow-shape': 'triangle'
+                    }
+                },
+                {
+                    selector: 'edge[cluster=0]',
+                    style: {
+                        'width': 3,
+                        'line-color': '#ff3300',
+                        'target-arrow-color': '#ff3300',
+                        'target-arrow-shape': 'triangle'
+                    }
+                }, 
+                {
+                    selector: 'edge[cluster=1]',
+                    style: {
+                        'width': 3,
+                        'line-color': '#0080ff',
+                        'target-arrow-color': '#ff3300',
+                        'target-arrow-shape': 'triangle'
+                    }
+                }, 
+                {
+                    selector: 'edge[cluster=2]',
+                    style: {
+                        'width': 3,
+                        'line-color': '#ff0080',
+                        'target-arrow-color': '#ff3300',
+                        'target-arrow-shape': 'triangle'
+                    }
+                }, 
+                {
+                    selector: 'edge[cluster=3]',
+                    style: {
+                        'width': 3,
+                        'line-color': '#59b300',
+                        'target-arrow-color': '#ff3300',
+                        'target-arrow-shape': 'triangle'
+                    }
+                }, 
+        
+                {
+                    selector: 'edge[cluster=4]',
+                    style: {
+                        'width': 3,
+                        'line-color': '#0099cc',
+                        'target-arrow-color': '#ff3300',
+                        'target-arrow-shape': 'triangle'
+                    }
+                }, 
+                {
+                    selector: 'edge[cluster=5]',
+                    style: {
+                        'width': 3,
+                        'line-color': '#993300',
+                        'target-arrow-color': '#ff3300',
+                        'target-arrow-shape': 'triangle'
+                    }
+                }, 
+                {
+                    selector: 'edge[cluster=6]',
+                    style: {
+                        'width': 3,
+                        'line-color': '#6666cc',
+                        'target-arrow-color': '#ff3300',
+                        'target-arrow-shape': 'triangle'
+                    }
+                },
+                {
+                    selector: 'edge[cluster=7]',
+                    style: {
+                        'width': 3,
+                        'line-color': '#ff00ff',
+                        'target-arrow-color': '#ff3300',
+                        'target-arrow-shape': 'triangle'
+                    }
+                },
+                {
+                    selector: 'edge[cluster=8]',
+                    style: {
+                        'width': 3,
+                        'line-color': '#002699',
+                        'target-arrow-color': '#ff3300',
+                        'target-arrow-shape': 'triangle'
+                    }
+                },
+                {
+                    selector: 'edge[cluster=9]',
+                    style: {
+                        'width': 3,
+                        'line-color': '#ff9999',
+                        'target-arrow-color': '#ff3300',
+                        'target-arrow-shape': 'triangle'
+                    }
+                },
+                {
+                    selector: 'edge[cluster=10]',
+                    style: {
+                        'width': 3,
+                        'line-color': '#70db70',
+                        'target-arrow-color': '#ff3300',
+                        'target-arrow-shape': 'triangle'
+                    }
+                },
+                {
+                    selector: 'edge[cluster=11]',
+                    style: {
+                        'width': 3,
+                        'line-color': '#0f3d0f',
+                        'target-arrow-color': '#ff3300',
+                        'target-arrow-shape': 'triangle'
+                    }
+                },
+                {
+                    selector: 'edge[cluster=12]',
+                    style: {
+                        'width': 3,
+                        'line-color': '#e60000',
+                        'target-arrow-color': '#ff3300',
+                        'target-arrow-shape': 'triangle'
+                    }
+                },
+                {
+                    selector: 'edge[cluster=13]',
+                    style: {
+                        'width': 3,
+                        'line-color': '#5900b3',
+                        'target-arrow-color': '#ff3300',
+                        'target-arrow-shape': 'triangle'
+                    }
+                },                
+                {
+                    selector: 'edge[cluster=14]',
+                    style: {
+                        'width': 3,
+                        'line-color': '#b3b300',
                         'target-arrow-color': '#ff3300',
                         'target-arrow-shape': 'triangle'
                     }
@@ -50,6 +186,18 @@ $(function(){
                 fit: true
             }
         })
+        //add differen colours for each cluster
+        var tickets = ['#ff3300','#0080ff','#ff0080','#59b300','#0099cc','#993300','#6666cc']
+        var stylesheet = cy.style().json()
+        stylesheet.push({
+            selector: "edge[cluster=0]",
+            style: {
+                'width': 3,
+                'line-color': '#6666cc',
+                'target-arrow-color': '#ff3300',
+                'target-arrow-shape': 'triangle'
+            }
+        })
         var nodes = cy.nodes()
         addEdges(cy)    
     }
@@ -65,28 +213,20 @@ function findCentroid(nodes){
         x += nodes[i].position("x")
         y += nodes[i].position("y")
     }
-    console.log("centre x: "+x)
-    console.log("centre y: "+y)
-    console.log("size: "+nodes.length)
-
     return [x/nodes.length, y/nodes.length]
 }
 function addEdges(cy){
     var nodes = cy.nodes()
     var cluster_num = 15;
-    // for(var i = 0;i < nodes.length; i++){
-    //     console.log(nodes[i].data("cluster"))
-    // }
     for(var i=0;i < cluster_num; i++){
         var currentCluster = []
         for (var j=0; j < nodes.length; j++){
-            console.log(nodes[j].data("cluster"))
+            // console.log(nodes[j].data("cluster"))
             if (nodes[j].data("cluster") == i){ currentCluster.push(nodes[j]) }
         }
         // if current cluster not empty
         if(currentCluster){
             //find the centroid node in the cluster
-            console.log("hello")
             var centre = findCentroid(currentCluster)
             if(centre=="srrymate"){
                 continue
@@ -101,7 +241,6 @@ function addEdges(cy){
                 var y_position = currentNode.position("y")
                 //distance from currentNode to centroid
                 var temp_distance = Math.sqrt(Math.pow(x_position-centre[0],2)+Math.pow(y_position-centre[1],2))
-                console.log(temp_distance)
                 if (temp_distance < distance){
                     distance = temp_distance
                     centreNode = currentNode
@@ -111,6 +250,7 @@ function addEdges(cy){
                 if (currentCluster[m].id() == centreNode.id()){
                     continue
                 }
+                console.log("cluster"+i)
                 cy.add({
                     group: "edges",
                     data:{
@@ -120,8 +260,6 @@ function addEdges(cy){
                         is_walking: true
                     }
                 })
-                var newStyle = currentCluster[m].style()
-                newStyle["background-color"] = "#ffb3b3"
             }
             //assign colours
             // for (var i = 0;i < cluster_num; i++){
