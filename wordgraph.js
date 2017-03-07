@@ -3,10 +3,10 @@ $(function(){
   
   // get exported json from cytoscape desktop via ajax
   var graphP = $.ajax({
-    url: 'graph_data.json', // tokyo-railways.json
+    url: 'https://rawgit.com/JohnPeng47/Word2Vec-Graph-Visualization/master/graph_data.json', // tokyo-railways.json
     type : 'GET',
     dataType : 'json',
-    async: false,
+    async: true,
     error: function(err){
         console.log(err)
         console.log("fucked up")
