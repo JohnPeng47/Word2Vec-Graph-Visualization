@@ -3,7 +3,7 @@ $(function(){
   
   // get exported json from cytoscape desktop via ajax
   var graphP = $.ajax({
-    url: 'https://rawgit.com/JohnPeng47/Word2Vec-Graph-Visualization/master/graph_data.json', // tokyo-railways.json
+    url: 'https://cdn.rawgit.com/JohnPeng47/Word2Vec-Graph-Visualization/98d1da37/graph_data.json', // tokyo-railways.json
     type : 'GET',
     dataType : 'json',
     async: true,
